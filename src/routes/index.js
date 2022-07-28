@@ -1,6 +1,4 @@
 import express from "express";
-import { testEnvironmentVariable } from "../settings.js";
-import escape from "pg-escape";
 import Model from "../models/model.js";
 const router = express.Router();
 
