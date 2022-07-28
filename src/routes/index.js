@@ -17,9 +17,18 @@ const entriesPage = async (req, res) => {
 	}
 };
 
-router.get("/getEntries", (req, res) =>
-	res.status(200).json(entriesModel.select())
-);
+router.get("/getEntries", async (req, res) => {
+	try {
+		res
+			.status(200)
+			.json(
+				await entriesModel.select("*", `WHERE title %> ${req.query.title}`)
+			);
+	} catch (err) {
+		res.status(500).json({ entries: err.stack });
+	}
+	// res.status(200).json(entriesModel.select())
+});
 
 router.post("/addEntry", entriesPage);
 console.log("Server is running");
