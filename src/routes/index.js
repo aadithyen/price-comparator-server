@@ -41,8 +41,11 @@ router.get("/getEntries", async (req, res) => {
 	try {
 		res
 			.status(200)
-			.json(
-				await entriesModel.select("*", `WHERE title %> ${req.query.title}`)
+			.send(
+				await entriesModel.select(
+					"*",
+					`WHERE title %> '${req.query.title.replace("'", "''")}'`
+				)
 			);
 	} catch (err) {
 		res.status(500).json({ entries: err.stack });
