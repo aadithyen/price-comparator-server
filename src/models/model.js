@@ -22,6 +22,13 @@ class Model {
 		console.log(query);
 		return this.pool.query(query);
 	}
+
+	async update(column, value, clause) {
+		let query = `UPDATE ${this.table} SET ${column} = ${value}`;
+		if (clause) query += ` ${clause}`;
+		console.log(query);
+		return this.pool.query(query);
+	}
 }
 
 export default Model;
